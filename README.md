@@ -19,3 +19,5 @@ Solver_Waveguide_NU.m: FD solver for dielectric waveguides
 ## Notebook
 WG_ModeSolver_Paper_Tidy3D_Tests.ipynb: analyses of the waveguides with a commercial solver, Tidy3D.
 
+## Manuscript
+The manuscript has been submitted to Optics Letters on December 2, 2024.
