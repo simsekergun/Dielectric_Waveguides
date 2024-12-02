@@ -1,4 +1,17 @@
 # Dielectric_Waveguides
-Finite-difference based MATLAB solver to study straight dielectric waveguides
+A finite-difference-based MATLAB solver to study light propagation along straight dielectric waveguides
 
-MATLAB files will be added in a few days (in December 2024)
+test_wg_only.m: Si3N4 rectangular waveguide surrounded by SiO2
+
+test_tapered_wg_on_film_substrate.m: thin film lithium niobate waveguide on a substrate
+
+get_mesh.m: a simple mesh generator. supported shapes
+rectangular waveguide in a homogeneous background
+rectangular waveguide on top of a substrate
+rectangular waveguide on top of a film-coated substrate
+tapered waveguide in a homogeneous background
+tapered waveguide on top of a substrate
+tapered waveguide on top of a film-coated substrate
+
+Solver_Waveguide_NU.m: FD solver for dielectric waveguides
+
