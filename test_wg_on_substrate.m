@@ -41,8 +41,7 @@ neff_max = 0.99*n_wg;
 [x,y,dx,dy,epsr] = get_uniform_mesh(structure,lambda0, wg_width_bottom, wg_height, gap_left, gap_right, gap_top, ...
     gap_bottom,  ppw, plot_geo, n_background, n_wg,n_substrate, n_film, film_thickness, wg_width_top);
 
-[Ex, Ey, Ez, Hx, Hy, Hz, beta, neff, time_spent]=Waveguide_Solver(x,y,dx,dy,epsr,lambda0,desired_modes, neff_min,neff_max, plot_fields,save_figure, filename);
-disp(neff(beta<0))
+[Exs, Eys, Ezs, Hxs, Hys, Hzs, betas, neffs]=Waveguide_Solver(x,y,dx,dy,epsr,lambda0,desired_modes, neff_min,neff_max, plot_fields,save_figure, filename);
 
 save(filename)
 !mv *.mat ./mat_files/

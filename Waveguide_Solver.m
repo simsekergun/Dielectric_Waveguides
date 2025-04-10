@@ -1,4 +1,4 @@
-function [Ex, Ey, Ez, Hx, Hy, Hz, betas, neffs, tt] = Solver_Waveguide_PolyeigDS(x, y, dx, dy, eps, lambda, desired_modes, neff_min, neff_max, plot_fields, save_plot, filename)
+function [Exs, Eys, Ezs, Hxs, Hys, Hzs, betas, neffs] = Waveguide_Solver(x, y, dx, dy, eps, lambda, desired_modes, neff_min, neff_max, plot_fields, save_plot, filename)
 Nx = length(x);
 Ny = length(y);
 Nxy = Nx * Ny;
@@ -14,7 +14,7 @@ h_factor = 1i/w/mu0;
 %%% Building of the operators
 AA=ones(1,Nx*Ny);
 BB=ones(1,Nx*Ny-1);
-% BB(Ny:Ny:end)=0;
+BB(Ny:Ny:end)=0;
 Axy=ones(1,(Nx-1)*Ny);
 
 % % First derivative (fourth-order accurate)
@@ -32,7 +32,6 @@ DX2 = (-1/12) * spdiags(Axy, -2*Ny, Nxy, Nxy) + (16/12) * spdiags(Axy, -Ny, Nxy,
 DY2 = (-1/12) * spdiags(BB, -2, Nxy, Nxy) + (16/12) * spdiags(BB, -1, Nxy, Nxy) ...
     + (-30/12) * spdiags(AA, 0, Nxy, Nxy) + (16/12) * spdiags(BB, 1, Nxy, Nxy) ...
     + (-1/12) * spdiags(BB, 2, Nxy, Nxy);
-
 
 DX1 = DX1/dx;
 DY1 = DY1/dy;
@@ -73,14 +72,6 @@ opts.tol = 1e-12;
 opts.maxit = 1000;
 [V, D] = eigs(A, B, 2*nmodes,beta_guess,opts);
 
-
-% % Solve the linear GEP using eigs (for sparse matrices)
-% opts.tol = 1e-12;
-% opts.maxit = 1000;
-% % [V, D] = eigs(A, B, desired_modes, beta_trial, opts);
-% % [V, D] = eigs(A, B, nmodes,'LR',opts);
-% [V, D] = eigs(A, B, 2*nmodes,beta_guess,opts);
-
 % Extract eigenvalues (β) and eigenvectors (E)
 betas = diag(D);
 psis = V(1:3 * Nxy, :);  % First 3*Nxy rows correspond to E
@@ -102,15 +93,12 @@ betas = betas(idx);
 psis = psis(:, idx);
 disp(neffs)
 
-% Extract Ex, Ey, Ez for each mode
-Ex = reshape(psis(1:Nxy, :), Ny, Nx, []);
-Ey = reshape(psis(Nxy+1:2*Nxy, :), Ny, Nx, []);
-Ez = reshape(psis(2*Nxy+1:3*Nxy, :), Ny, Nx, []);
-Hx = [];
-Hy = [];
-Hz = [];
-
-tt = [];
+Exs = zeros(length(y),length(x), min([length(desired_modes), nfound]));
+Eys = Exs;
+Ezs = Exs;
+Hxs = Exs;
+Hys = Exs;
+Hzs = Exs;
 
 for i5 = 1:min([length(desired_modes), nfound])
     mm = desired_modes(i5);
@@ -137,6 +125,13 @@ for i5 = 1:min([length(desired_modes), nfound])
     Hx = Hx/Power_z_sqrt;
     Hy = Hy/Power_z_sqrt;
     Hz = Hz/Power_z_sqrt;
+
+    Exs(:,:,i5) = Ex;
+    Eys(:,:,i5) = Ey;
+    Ezs(:,:,i5) = Ez;
+    Hxs(:,:,i5) = Hx;
+    Hys(:,:,i5) = Hy;
+    Hzs(:,:,i5) = Hz;
 
     % maxE = max([max(max(abs(Ex))) max(max(abs(Ey))) max(max(abs(Ez)))]);
     % sumEs = [sum(sum(abs(Ex).^2)) sum(sum(abs(Ey).^2)) sum(sum(abs(Ez).^2))];

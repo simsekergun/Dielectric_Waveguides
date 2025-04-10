@@ -1,13 +1,11 @@
 clear;
 close all;
 
-tidy3D_results = [1.889322 1.834376	1.765082	1.682733];
-ergun_results = [1.8890 1.8230 1.7497 1.6864];
-percentile_errors = 100*abs(tidy3D_results-ergun_results)./tidy3D_results;
-[(1:4).' tidy3D_results.' ergun_results.'  percentile_errors.']
-
+% tidy3D_results = [1.889322 1.834376	1.765082	1.682733];
+% our_results = [1.8890 1.8230 1.7497 1.6864];
+% percentile_errors = 100*abs(tidy3D_results-our_results)./tidy3D_results;
 % percentile_errors = 0.0170    0.6202    0.8715    0.2179
-% desired_modes = [2 3 5 6];
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 set(0,'defaultlinelinewidth',2)
 set(0,'DefaultAxesFontSize',18)
@@ -32,8 +30,7 @@ gap_right = gap_left;
 gap_top = gap_left;
 gap_bottom = gap_left;
 ppw = 30;
-nmodes_search=6;                           %% number of solutions asked
-desired_modes = [2 3 5 6];
+desired_modes = 1:4;
 film_thickness = 0.35e-6;
 plot_geo = 1;
 plot_fields = 1;
@@ -47,7 +44,7 @@ neff_max = 0.99*n_wg;
 [x,y,dx,dy,epsr] = get_uniform_mesh(structure,lambda0, wg_width_bottom, wg_height, gap_left, gap_right, gap_top, ...
     gap_bottom,  ppw, plot_geo, n_background, n_wg,n_substrate, n_film, film_thickness, wg_width_top);
 
-[Ex, Ey, Ez, Hx, Hy, Hz, beta, neff, time_spent]=Waveguide_Solver(x,y,dx,dy,epsr,lambda0,desired_modes, neff_min,neff_max, plot_fields,save_figure, filename);
+[Exs, Eys, Ezs, Hxs, Hys, Hzs, betas, neffs]=Waveguide_Solver(x,y,dx,dy,epsr,lambda0,desired_modes, neff_min,neff_max, plot_fields,save_figure, filename);
 
 save(filename)
 !mv *.mat ./mat_files/
