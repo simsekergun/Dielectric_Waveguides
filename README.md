@@ -16,12 +16,12 @@ test_wg_only.m: Si3N4 rectangular waveguide surrounded by SiO2
 test_tapered_wg_on_film_substrate.m: thin film lithium niobate waveguide on a substrate
 
 get_uniform_mesh.m: a simple mesh generator. supported shapes
-rectangular waveguide in a homogeneous background
-rectangular waveguide on top of a substrate
-rectangular waveguide on top of a film-coated substrate
-tapered waveguide in a homogeneous background
-tapered waveguide on top of a substrate
-tapered waveguide on top of a film-coated substrate
++ rectangular waveguide in a homogeneous background
++ rectangular waveguide on top of a substrate
++ rectangular waveguide on top of a film-coated substrate
++ tapered waveguide in a homogeneous background
++ tapered waveguide on top of a substrate
++ tapered waveguide on top of a film-coated substrate
 
 Waveguide_Solver.m: FD solver for dielectric waveguides
 
