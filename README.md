@@ -1,5 +1,9 @@
 # Dielectric_Waveguides
-A finite-difference-based MATLAB solver to study light propagation along straight dielectric waveguides
+A finite-difference-based MATLAB solver to study light propagation along straight dielectric waveguides.
+
+If you use this code for your research, please cite this publication.
+
+E. Simsek, "Practical Vectorial Mode Solver for Dielectric Waveguides Based on Finite Differences,” Optics Letters, vol. 50, no. 12, pp. 4102–4105 (2025). [Download] [DOI: 10.1364/OL.550820]
 
 ## MATLAB codes
 test_wg_only.m: Si3N4 rectangular waveguide surrounded by SiO2
