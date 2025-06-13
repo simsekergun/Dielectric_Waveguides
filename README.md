@@ -1,4 +1,4 @@
-# Dielectric_Waveguides
+# Electromagnetic Wave Propagation in Straight Dielectric Waveguides
 A finite-difference-based MATLAB solver to study light propagation along straight dielectric waveguides.
 
 If you use this code for your research, please cite this publication.
